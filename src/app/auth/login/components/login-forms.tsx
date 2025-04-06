@@ -4,15 +4,41 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LucideFacebook } from "lucide-react";
-import { useState } from "react";
-
+import React, { useState } from "react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
+  
+  const Route = useRouter()
   const [usuario, setUsuario] = useState("");
   const [password, setPassword] = useState("");
-  console.log(usuario, password);
+
+  const iniciarSesion = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ usuario, password }),
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+    if (response.ok) {
+      console.log("Token recibido:", data.token);
+      // Guardar token en localStorage o cookie
+      localStorage.setItem("token", data.token);
+      toast.success("Inicio de sesion aprobado");
+      Route.push("/dashboard")
+    } else {
+      toast.error(data.message);
+    }
+  };
 
   return (
     <div>
@@ -24,12 +50,13 @@ export function LoginForm({
       </div>
 
       <div className="grid gap-6">
-        <form className={cn("flex flex-col gap-6", className)} {...props}>
+        <form onSubmit={iniciarSesion} className={cn("flex flex-col gap-6", className)} {...props}>
           <div className="grid gap-2">
             <Label htmlFor="usuario">Usuario</Label>
             <Input
               id="usuario"
               type="text"
+              minLength={4}
               placeholder="Michael123"
               onChange={(e) => setUsuario(e.target.value)}
               onKeyPress={(e) => {
@@ -48,6 +75,7 @@ export function LoginForm({
               id="password"
               type="password"
               required
+              minLength={4}
               onChange={(e) => setPassword(e.target.value)}
               onKeyPress={(e) => {
                 if (e.key === " ") {

@@ -1,10 +1,12 @@
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 import React from 'react'
-import LoginPage from './login/page'
 
 function page() {
   return (
     <div>
-      <LoginPage/>
+      <h1>Este es el home </h1>
+      <Link href='/auth/login'><Button>Ir al login</Button></Link>
     </div>
   )
 }
