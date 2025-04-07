@@ -73,18 +73,7 @@ export function DataTable<TData, TValue>({
           </Button>
         </div>
       </div>
-      {/*<div className="flex items-center py-4">
-        <Input
-          placeholder="Filtrar por categoria."
-          value={
-            (table.getColumn("categoria")?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn("categoria")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-      </div>*/}
+     
 
       <div className="rounded-md border">
         <Table>

@@ -1,6 +1,8 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
+import { Button } from "./ui/button";
+import { PencilIcon, TrashIcon } from "lucide-react";
 
 // Este tipo se usa para definir la forma de nuestros datos.
 export type Categoria = {
@@ -21,12 +23,47 @@ export type Producto = {
 
 export const columns: ColumnDef<Producto>[] = [
   {
-    accessorKey: "imagen",
-    header: "Imagen",
-    cell: ({ row }) => (
-      <img src={row.getValue("imagen")} alt={row.getValue("nombre")} className="w-5 h-5 object-cover" />
-    ), // Mostrar la imagen
+    accessorKey: "Editar",
+    header: "Accion",
+    cell: () => {
+      return (
+        <div className="flex gap-0.5">
+          <Button size="icon" className="bg-amber-700 text-white">
+            <PencilIcon className="h-4 w-4 bg" />
+          </Button>
+          <Button size="icon" variant="destructive">
+            <TrashIcon className="h-4 w-4" />
+          </Button>
+        </div>
+      );
+    },
   },
+  {
+    accessorKey: "estado",
+    header: "Estado",
+    cell: ({ row }) => (
+      <span
+        className={`font-medium ${
+          row.getValue("estado") === "Disponible"
+            ? "text-green-500"
+            : "text-red-500"
+        }`}
+      >
+        {row.getValue("estado")}
+      </span>
+    ),
+  },
+  // {
+  //   accessorKey: "imagen",
+  //   header: "Imagen",
+  //   cell: ({ row }) => (
+  //     <img
+  //       src={row.getValue("imagen")}
+  //       alt={row.getValue("nombre")}
+  //       className="w-5 h-5 object-cover"
+  //     />
+  //   ), // Mostrar la imagen
+  // },
   {
     accessorKey: "codigo",
     header: "Codigo",
@@ -57,14 +94,5 @@ export const columns: ColumnDef<Producto>[] = [
 
       return <div className="text-right font-medium">{formatted}</div>;
     },
-  },
-  {
-    accessorKey: "estado",
-    header: "Estado",
-    cell: ({ row }) => (
-      <span className={`font-medium ${row.getValue("estado") === "Disponible" ? "text-green-500" : "text-red-500"}`}>
-        {row.getValue("estado")}
-      </span>
-    ),
   },
 ];
