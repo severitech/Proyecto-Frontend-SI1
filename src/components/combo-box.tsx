@@ -59,9 +59,8 @@ export function ComboboxDemo({
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {value
-            ? categorias.find((categoria) => categoria.categoria === value)?.categoria
-            : "Seleccionar Categoria..."}
+          {value || "Seleccionar Categoria..."}
+
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>

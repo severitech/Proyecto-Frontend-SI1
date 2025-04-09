@@ -6,7 +6,7 @@ export default function LoginPage() {
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="relative hidden bg-muted lg:block">
-        <h1>Aqui va la imagen</h1>
+        <img src="/Login.svg" alt="imagen de inicio de sesion" />
       </div>
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">

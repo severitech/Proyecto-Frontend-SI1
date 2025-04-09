@@ -26,27 +26,27 @@ export const datos ={
             url: "/dashboard/productos",
           },
           {
-            title: "Starred",
-            url: "#",
+            title: "Ingreso de Productos",
+            url: "/dashboard/ingresos",
           },
           {
-            title: "Settings",
-            url: "#",
+            title: "Reportes",
+            url: "/dashboard/reportes",
           },
         ],
       },
       {
-        title: "Models",
+        title: "Clientes y Proveedores",
         url: "#",
         icon: Bot,
         items: [
           {
-            title: "Genesis",
-            url: "#",
+            title: "Clientes",
+            url: "/dashboard/clientes",
           },
           {
-            title: "Explorer",
-            url: "#",
+            title: "Proveedores",
+            url: "/dashboard/proveedores",
           },
           {
             title: "Quantum",
@@ -105,7 +105,7 @@ export const datos ={
     ventas: [
       {
         name: "Ventas",
-        url: "#",
+        url: "/dashboard/ventas",
         icon: Frame,
       },
       {

@@ -1,10 +1,9 @@
-"use client";
-
+"use client"
 import { ColumnDef } from "@tanstack/react-table";
-import { Button } from "./ui/button";
-import { PencilIcon, TrashIcon } from "lucide-react";
+import { AlertDialogDemo } from "./dialog-confirmacion";
+import FormularioProducto from "@/app/dashboard/productos/components/formularioProducto";
 
-// Este tipo se usa para definir la forma de nuestros datos.
+// Tipo de Producto y Categoria
 export type Categoria = {
   categoria: string;
   createdAt: string;
@@ -17,27 +16,43 @@ export type Producto = {
   imagen: string;
   cantidad: number;
   precio: number;
-  estado: "Disponible" | "No Disponible"; // Corregí la palabra "Disponible"
+  estado: "Disponible" | "No Disponible";
   categoria: Categoria;
 };
 
 export const columns: ColumnDef<Producto>[] = [
   {
     accessorKey: "Editar",
-    header: "Accion",
-    cell: () => {
+    header: "Acción",
+    cell: ({ row }) => {
+      const producto = row.original;  // Aquí obtienes los datos del producto
+  
       return (
         <div className="flex gap-0.5">
-          <Button size="icon" className="bg-amber-700 text-white">
-            <PencilIcon className="h-4 w-4 bg" />
-          </Button>
-          <Button size="icon" variant="destructive">
-            <TrashIcon className="h-4 w-4" />
-          </Button>
+          {/* Formulario para editar el producto */}
+          <FormularioProducto
+            datos={{
+              id: producto.id,
+              codigo: producto.codigo,
+              nombre: producto.nombre,
+              precio: producto.precio,
+              imagen: producto.imagen ?? "", // Asegúrate de que 'imagen' no sea null
+              categoria: producto.categoria.categoria,
+              cantidad: producto.cantidad
+            }}
+            esNuevoProducto={false} // Esto indica que es para editar el producto
+          />
+  
+          {/* Alert Dialog para cambiar el estado del producto */}
+          <AlertDialogDemo
+            titulo="¿Está seguro de cambiar el estado del producto?"
+            descripcion="Se cambiará el estado del producto"
+          />
         </div>
       );
     },
   },
+  
   {
     accessorKey: "estado",
     header: "Estado",
@@ -53,20 +68,9 @@ export const columns: ColumnDef<Producto>[] = [
       </span>
     ),
   },
-  // {
-  //   accessorKey: "imagen",
-  //   header: "Imagen",
-  //   cell: ({ row }) => (
-  //     <img
-  //       src={row.getValue("imagen")}
-  //       alt={row.getValue("nombre")}
-  //       className="w-5 h-5 object-cover"
-  //     />
-  //   ), // Mostrar la imagen
-  // },
   {
     accessorKey: "codigo",
-    header: "Codigo",
+    header: "Código",
   },
   {
     accessorKey: "nombre",

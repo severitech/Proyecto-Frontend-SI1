@@ -17,10 +17,19 @@ export default async function DemoPage() {
   const data = await getData();
 
   return (
-    <div className="container mx-auto py-10 ">
+    <div className="container mx-auto p-4">
       <section className="flex gap-3">
-      <FormularioProducto />
-        
+        <FormularioProducto
+          datos={{
+            id: 0,
+            codigo: "",
+            nombre: "",
+            precio: 0,
+            imagen: "",
+            categoria: "",
+          }}
+          esNuevoProducto={true}
+        />
       </section>
       <DataTable columns={columns} data={data} />
     </div>

@@ -64,7 +64,7 @@ export default function CrearCategoria() {
               </Label>
               <Input
                 id="Imagen"
-                placeholder="0.00"
+                placeholder="https:imagen.com"
                 type="file"
                 className="col-span-3"
               />
